@@ -35,19 +35,60 @@ List<Pokemon> pokemons = new();
 PopulatePokemonsList();
 DisplayPokemons();
 AskUser();
-EvaluateRespons(response);
+
+//Methoder
+
+// (Steg 4) Create a new pokemon 
+
+void RemovePokemon()
+{
+    Console.WriteLine();
+    Console.WriteLine("Which pokemon do you want to remove?");
+    Console.Write("Pokemon no: ");
+    int response = Convert.ToInt32(Console.ReadLine());
+}
+
+void Createpokemon()
+{
+    Console.WriteLine();
+    Console.WriteLine(" What should be the pokemon name ? ");
+    Console.WriteLine("Name: ");
+    string newPokemonNamn = Console.ReadLine();
+
+    Console.WriteLine();
+    Console.WriteLine(" What should be the pokemon type ? ");
+    Console.WriteLine("Type: ");
+    string newPokemonTYPE = Console.ReadLine();
+
+    Console.WriteLine();
+    Console.WriteLine(" What should be the pokemon maxForm ? ");
+    Console.WriteLine("MaxForm: ");
+    int newPokemonMaxForm = Convert.ToInt32(Console.ReadLine());
+
+    //Create Constructor, skappa pokemon
+    Pokemon newPokemon = new(newPokemonNamn, newPokemonTYPE, newPokemonMaxForm);
+
+    pokemons.Add(newPokemon);
+    DisplayPokemons();
+}
 
 string EvaluateRespons(string response)
 {
     bool isAvaible = false;
 
-    if (response.ToLower() == "Add")
+    if (response == "Add")
     {
         //Lägg till pokemon
+        Createpokemon();
+        //var lastPokemon = pokemons[pokemons.Count - 1].GetNamn;
+        //Console.WriteLine();
+        //Console.WriteLine("Du har lagd:" + lastPokemon);
+      
     }
     else if (response.ToLower() == "Remove")
     {
         //Remove pokemon
+        RemovePokemon();
     }
     else if (response.ToLower() == "Display")
     {
@@ -71,17 +112,21 @@ void AskUser()
 
     Console.Write("Replay:");
     string respons = Console.ReadLine();
+    EvaluateRespons(respons);
 }
-
-//Methoder
 
 // (Steg2) Loop som displaya listan med pokemons 
 void DisplayPokemons()
 {
-   foreach(Pokemon pokemon in pokemons)
+    Console.Clear();
+    int pokemonNumber = 1;
+    foreach (Pokemon pokemon in pokemons)
     {
+       
         //Console.WriteLine(pokemon.GetNamn() + " - " + pokemon.GetType());
         Console.WriteLine($"{pokemon.GetNamn()} -Type:  {pokemon.GetType()} -Evolution: {pokemon.GetCurrentForm()}/{pokemon.GetTotalForm()}");
+
+        pokemonNumber++;
     }
 }
 
