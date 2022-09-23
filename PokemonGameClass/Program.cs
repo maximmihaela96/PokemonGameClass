@@ -28,13 +28,66 @@
 
 using PokemonGameClass;
 
+//Create listan med pokemons
 List<Pokemon> pokemons = new();
+
+//Anropa metoderna
 PopulatePokemonsList();
+DisplayPokemons();
+AskUser();
+EvaluateRespons(response);
 
-//Method
+string EvaluateRespons(string response)
+{
+    bool isAvaible = false;
 
-//Lägg till några pokemons från början
+    if (response.ToLower() == "Add")
+    {
+        //Lägg till pokemon
+    }
+    else if (response.ToLower() == "Remove")
+    {
+        //Remove pokemon
+    }
+    else if (response.ToLower() == "Display")
+    {
+        //Display pokemon
+    }
+    else if (response.ToLower() == "Evolva")
+    {
+        //Evolva Pokemon
+    }
+    else
+        Console.WriteLine(" Fel inmattad ");
+    return response;
+}
+
+// (Steg3) Ask user if wants to add/ remove / display / evolve 
+void AskUser()
+{
+    Console.WriteLine();
+    Console.WriteLine("What do you want to do?");
+    Console.WriteLine("Add/ Remove/ Display/ Evolve");
+
+    Console.Write("Replay:");
+    string respons = Console.ReadLine();
+}
+
+//Methoder
+
+// (Steg2) Loop som displaya listan med pokemons 
+void DisplayPokemons()
+{
+   foreach(Pokemon pokemon in pokemons)
+    {
+        //Console.WriteLine(pokemon.GetNamn() + " - " + pokemon.GetType());
+        Console.WriteLine($"{pokemon.GetNamn()} -Type:  {pokemon.GetType()} -Evolution: {pokemon.GetCurrentForm()}/{pokemon.GetTotalForm()}");
+    }
+}
+
+//  (Steg1) Lägg till några pokemons från början
 void PopulatePokemonsList()
+
 {
     //Skappa instans
     Pokemon pokemon1 = new("Charmander", "Fire", 3);
@@ -50,3 +103,6 @@ void PopulatePokemonsList()
     pokemons.Add(pokemon4);
 
 }
+
+
+

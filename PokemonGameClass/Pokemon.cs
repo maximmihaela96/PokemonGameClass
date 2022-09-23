@@ -8,10 +8,10 @@ namespace PokemonGameClass
 {
     internal class Pokemon
     {
-        public string namn;
-        public string type;
-        public int totalForms;
-        public int currentForm;
+        private readonly string namn;
+        private readonly string type;
+        private readonly int totalForms;
+        private readonly int currentForm = 1;
 
         public  Pokemon(string namn, string type, int totalForms)
         {
@@ -19,7 +19,25 @@ namespace PokemonGameClass
             this.type = type;
             this.totalForms = totalForms;
 
-            Console.WriteLine(namn + " " + type);
+           // Console.WriteLine(namn + " " + type);
+        }
+
+        public string GetNamn()
+        {
+            return namn;
+        }
+        public string GetType()
+        {
+            return type;
+        }
+        public int GetCurrentForm()
+        {
+            return currentForm;
+        }
+
+        public int GetTotalForm()
+        {
+            return totalForms;  
         }
 
     }
