@@ -38,116 +38,181 @@ AskUser();
 
 //Methoder
 
-// (Steg 4) Create a new pokemon 
+// (Steg 7) Increse the current form of a Pokemon
+void EvolvPokemon()
+{
+    Console.WriteLine();
+    Console.WriteLine("Witch pokemon do you want to evolv?");
+    Console.WriteLine("Pokemon nummber:");
+    int pokemoNumber = Convert.ToInt32(Console.ReadLine());
 
+    if(pokemoNumber <= pokemons.Count() && pokemoNumber > 0)
+    {
+        //Find the corect Pokemon
+        //Run the Evolve method on that pokemon
+
+        //verifiera om maxform är redan nått
+        int pokemonIndex = pokemoNumber - 1;
+        if (pokemons[pokemonIndex].GetCurrentForm() < pokemons[pokemonIndex].GetTotalForm())
+        {
+    
+            pokemons[pokemonIndex].Evolv();
+        }
+        else
+        {
+            Console.WriteLine("Pokemonen är redan max evolverad");
+        }
+    }
+    DisplayPokemons();
+    AskUser();
+}
+
+// (Steg 6) Ta bort pokemon from lista
 void RemovePokemon()
 {
     Console.WriteLine();
     Console.WriteLine("Which pokemon do you want to remove?");
-    Console.Write("Pokemon no: ");
-    int response = Convert.ToInt32(Console.ReadLine());
-}
+    Console.Write("Pokemon name: ");
+    int pokemonNumber = Convert.ToInt32(Console.ReadLine());
+    //string pokemonName = Console.ReadLine();
 
-void Createpokemon()
-{
-    Console.WriteLine();
-    Console.WriteLine(" What should be the pokemon name ? ");
-    Console.WriteLine("Name: ");
-    string newPokemonNamn = Console.ReadLine();
+    if (pokemonNumber <= pokemons.Count())
+     {
+         //Remove the pokemon
+         int pokemonIndex = pokemonNumber - 1;
+        //pokemons.RemoveAt(pokemonIndex);
+        pokemons.Remove(pokemons[pokemonIndex]);
+        Console.WriteLine("Pokemon is removed!");
+        DisplayPokemons();
+        AskUser();
+     }
+     else
+     {
+         //Ask user for another pokemon number
+         Console.WriteLine("Number doesn't exist!");
+     }
+    
 
-    Console.WriteLine();
-    Console.WriteLine(" What should be the pokemon type ? ");
-    Console.WriteLine("Type: ");
-    string newPokemonTYPE = Console.ReadLine();
-
-    Console.WriteLine();
-    Console.WriteLine(" What should be the pokemon maxForm ? ");
-    Console.WriteLine("MaxForm: ");
-    int newPokemonMaxForm = Convert.ToInt32(Console.ReadLine());
-
-    //Create Constructor, skappa pokemon
-    Pokemon newPokemon = new(newPokemonNamn, newPokemonTYPE, newPokemonMaxForm);
-
-    pokemons.Add(newPokemon);
-    DisplayPokemons();
-}
-
-string EvaluateRespons(string response)
-{
-    bool isAvaible = false;
-
-    if (response == "Add")
+ /*   foreach (Pokemon pokemon in pokemons)
     {
+        if (pokemon.GetNamn().ToLower() == pokemonName.ToLower())
+        {
+            Pokemon pokemonToRemove = pokemon;
+        }
+    }
+ */
+}
+
+// (Steg 5) Create a new pokemon 
+void Createpokemon()
+    {
+        Console.WriteLine();
+        Console.WriteLine(" What should be the pokemon name ? ");
+        Console.WriteLine("Name: ");
+        string newPokemonNamn = Console.ReadLine();
+
+        Console.WriteLine();
+        Console.WriteLine(" What should be the pokemon type ? ");
+        Console.WriteLine("Type: ");
+        string newPokemonTYPE = Console.ReadLine();
+
+        Console.WriteLine();
+        Console.WriteLine(" What should be the pokemon maxForm ? ");
+        Console.WriteLine("MaxForm: ");
+        int newPokemonMaxForm = Convert.ToInt32(Console.ReadLine());
+
+        //Create Constructor, skappa pokemon
+        Pokemon newPokemon = new(newPokemonNamn, newPokemonTYPE, newPokemonMaxForm);
+
+        pokemons.Add(newPokemon);
+        DisplayPokemons();
+    }
+
+// (Steg 4) Verifiera anvendarens respons
+string EvaluateRespons(string response)
+    {
+        //bool isAvaible = false;
+
+        if (response.ToLower() == "add")
+        {
         //Lägg till pokemon
-        Createpokemon();
         //var lastPokemon = pokemons[pokemons.Count - 1].GetNamn;
         //Console.WriteLine();
         //Console.WriteLine("Du har lagd:" + lastPokemon);
-      
+            Createpokemon();
+
     }
-    else if (response.ToLower() == "Remove")
-    {
-        //Remove pokemon
-        RemovePokemon();
+        else if (response.ToLower() == "remove")
+        {
+            //Remove pokemon
+            RemovePokemon();
+        }
+        else if (response.ToLower() == "display")
+        {
+            //Display pokemon
+            DisplayPokemons();
+            AskUser();
+        }
+        else if (response.ToLower() == "evolva")
+        {
+            //Evolva Pokemon
+            EvolvPokemon();
+         
+        }
+        else
+        {
+            Console.WriteLine(" Fel inmattad ");
+        }
+           
+        return response;
     }
-    else if (response.ToLower() == "Display")
-    {
-        //Display pokemon
-    }
-    else if (response.ToLower() == "Evolva")
-    {
-        //Evolva Pokemon
-    }
-    else
-        Console.WriteLine(" Fel inmattad ");
-    return response;
-}
 
 // (Steg3) Ask user if wants to add/ remove / display / evolve 
 void AskUser()
-{
-    Console.WriteLine();
-    Console.WriteLine("What do you want to do?");
-    Console.WriteLine("Add/ Remove/ Display/ Evolve");
+    {
+        Console.WriteLine();
+        Console.WriteLine("What do you want to do?");
+        Console.WriteLine("Add/ Remove/ Display/ Evolva");
 
-    Console.Write("Replay:");
-    string respons = Console.ReadLine();
-    EvaluateRespons(respons);
-}
+        Console.Write("Replay:");
+        string respons = Console.ReadLine();
+        EvaluateRespons(respons);
+    }
 
 // (Steg2) Loop som displaya listan med pokemons 
 void DisplayPokemons()
-{
-    Console.Clear();
-    int pokemonNumber = 1;
-    foreach (Pokemon pokemon in pokemons)
     {
-       
-        //Console.WriteLine(pokemon.GetNamn() + " - " + pokemon.GetType());
-        Console.WriteLine($"{pokemon.GetNamn()} -Type:  {pokemon.GetType()} -Evolution: {pokemon.GetCurrentForm()}/{pokemon.GetTotalForm()}");
+        Console.Clear();
+        int pokemonNumber = 1;
+        foreach (Pokemon pokemon in pokemons)
+        {
 
-        pokemonNumber++;
+            //Console.WriteLine(pokemon.GetNamn() + " - " + pokemon.GetType());
+            Console.WriteLine($"{pokemonNumber}. {pokemon.GetNamn()} -Type:  {pokemon.GetType()} -Evolution: {pokemon.GetCurrentForm()}/{pokemon.GetTotalForm()}");
+
+            pokemonNumber++;
+        }
     }
-}
 
-//  (Steg1) Lägg till några pokemons från början
+// (Steg1) Lägg till några pokemons från början
 void PopulatePokemonsList()
 
-{
-    //Skappa instans
-    Pokemon pokemon1 = new("Charmander", "Fire", 3);
-    pokemons.Add(pokemon1);
+    {
+        //Skappa instans
+        Pokemon pokemon1 = new("Charmander", "Fire", 3);
+        pokemons.Add(pokemon1);
 
-    Pokemon pokemon2 = new("Squirtle", "Water", 3);
-    pokemons.Add(pokemon2);
+        Pokemon pokemon2 = new("Squirtle", "Water", 3);
+        pokemons.Add(pokemon2);
 
-    Pokemon pokemon3 = new("Bulbasar", "Poison", 3);
-    pokemons.Add(pokemon3);
+        Pokemon pokemon3 = new("Bulbasar", "Poison", 3);
+        pokemons.Add(pokemon3);
 
-    Pokemon pokemon4 = new("Pikachu", "Electric", 2);
-    pokemons.Add(pokemon4);
+        Pokemon pokemon4 = new("Pikachu", "Electric", 2);
+        pokemons.Add(pokemon4);
 
-}
+    }
+
 
 
 

@@ -10,8 +10,8 @@ namespace PokemonGameClass
     {
         private readonly string namn;
         private readonly string type;
+        private  int currentForm = 1;
         private readonly int totalForms;
-        private readonly int currentForm = 1;
 
         public  Pokemon(string namn, string type, int totalForms)
         {
@@ -38,6 +38,12 @@ namespace PokemonGameClass
         public int GetTotalForm()
         {
             return totalForms;  
+        }
+
+        public void Evolv()
+        {
+            currentForm++;
+            
         }
 
     }
